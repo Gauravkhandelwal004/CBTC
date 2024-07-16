@@ -1,0 +1,39 @@
+from datetime import datetime
+
+def generate_receipt(customer_name, items, payment_method, total_amount):
+    receipt = f"Payment Receipt\n"
+    receipt += f"{'='*30}\n"
+    receipt += f"Customer: {customer_name}\n"
+    receipt += f"Date: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n"
+    receipt += f"{'='*30}\n"
+    receipt += f"Items:\n"
+
+    for item, price in items.items():
+        receipt += f"{item}: ${price:.2f}\n"
+
+    receipt += f"{'='*30}\n"
+    receipt += f"Payment Method: {payment_method}\n"
+    receipt += f"Total Amount: ${total_amount:.2f}\n"
+    receipt += f"{'='*30}\n"
+    receipt += "Thank you for your purchase!\n"
+
+    return receipt
+
+def save_receipt_to_file(receipt, filename="receipt.txt"):
+    with open(filename, 'w') as file:
+        file.write(receipt)
+
+# Example usage
+customer_name = "John Doe"
+items = {
+    "Item A": 10.50,
+    "Item B": 25.00,
+    "Item C": 7.75
+}
+payment_method = "Credit Card"
+total_amount = sum(items.values())
+
+receipt = generate_receipt(customer_name, items, payment_method, total_amount)
+save_receipt_to_file(receipt)
+
+print("Receipt generated and saved to receipt.txt")
